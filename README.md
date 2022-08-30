@@ -78,7 +78,7 @@ index 0df728f..247c917 100644
 1.Clone this project
 
 ```bash
-git clone https://github.com/edk2-porting/edk2-sdm845.git --depth=1
+git clone https://github.com/hejianwei889/sdm845.git --depth=1
 cd edk2-sdm845
 ```
 
