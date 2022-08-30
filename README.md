@@ -1,15 +1,22 @@
-属国
-对于Windows/MAC OS/其他Linux发行版:
+参阅[Windows设备支持状态](https://renegade-project.cn/#/zh/windows/state-frame.html)
 
-手动安装Docker或使用Ubuntu虚拟机
+## 依赖
 
-对于Ubuntu 20.04:
+Windows/MacOS/其它Linux发行版:
 
+手动安装Docker或者使用Ubuntu虚拟机
+
+Ubuntu 20.04:
+
+```bash
 sudo apt update
 sudo apt upgrade
 sudo apt install build-essential uuid-dev iasl git nasm gcc-aarch64-linux-gnu python3-distutils python3-pil python3-git gettext
-如果您使用的是GCC 11+，请修改edk2/BaseTools/Source/C/Makefiles/header.makefile
+```
 
+如果你的编译器为 GCC 11+, 请手动修改 `edk2/BaseTools/Source/C/Makefiles/header.makefile`
+
+```diff
 diff --git a/BaseTools/Source/C/Makefiles/header.makefile b/BaseTools/Source/C/Makefiles/header.makefile
 index 0df728f..247c917 100644
 --- a/BaseTools/Source/C/Makefiles/header.makefile
@@ -23,34 +30,55 @@ index 0df728f..247c917 100644
  -Wno-deprecated-declarations -Wno-stringop-truncation -Wno-restrict \
  -Wno-unused-result -nostdlib -g
  endif
-建筑物
-1.克隆此项目
+```
 
-git clone https://github.com/hejianwei889/sdm845.git --depth=1
+## 构建
+
+**不建议使用Ubuntu 18.04版本，请使用Ubuntu 20.04**
+
+1.克隆此项目（默认使用国内fastgit镜像加速）
+
+```bash
+git clone https://hub.fastgit.xyz/edk2-porting/edk2-sdm845.git --depth=1
 cd edk2-sdm845
-2.1构建这个项目(仅在linux上)
+```
 
-bash build.sh --device DEVICE
-2.2对于Macos/Windows(可以使用docker)
+2.1 编译此项目（默认使用fastgit加速submodule克隆，若不需要请删去 `--chinese`）
 
+```bash
+bash build.sh --chinese --device DEVICE
+```
+
+2.2 如果你使用MacOS/Windows，则可以借助Docker编译
+
+````bash
 docker-compose run edk2 ./build.sh -d DEVICE
-3.启动映像
+````
 
+3.启动镜像
+
+```bash
 fastboot boot boot_DEVICE.img
-(设备是你手机的代号。)
+```
 
-此外，您可以刷新映像进行恢复，以实现双启动。
+(请将DEVICE替换成你的设备代号.)
 
+另外，你可以将UEFI刷写至recovery分区以实现双重启动。
+
+```bash
 fastboot flash recovery boot_DEVICE.img
-信用
-fxsheep为了他的原创edk2-sagit
+```
 
-strongtz维护叛离项目
+## 贡献
 
-BigfootACA对于构建脚本
+感谢`fxsheep`的`edk2-sagit`
 
-Lemon_Ice和NTAuthority为指导和一些blobs
+感谢`strongtz`维护Renegade Project
 
-@Freak2112, TAO_Croatia和废物努力进行测试和调试
+感谢`BigfootACA`的编译脚本
 
-NekokeCore用于修复内存映射
+感谢`Lemon_Ice`和`NTAuthority`提供指导以及一些有用的blob
+
+感谢`@Freak2112`, `TAO_Croatia`和`废物`的实机调试
+
+感谢`NekokeCore`参与了MemoryMap的修复
