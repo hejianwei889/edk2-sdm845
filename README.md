@@ -46,27 +46,27 @@ cd sdm845
 2.1 编译此项目（默认使用fastgit加速submodule克隆，若不需要请删去 `--chinese`）
 
 ```bash
-bash build.sh --chinese --device DEVICE
+bash build.sh --chinese --device polaris
 ```
 
 2.2 如果你使用MacOS/Windows，则可以借助Docker编译
 
 ````bash
-docker-compose run edk2 ./build.sh -d DEVICE
+docker-compose run edk2 ./build.sh -d polaris
 ````
 
 3.启动镜像
 
 ```bash
-fastboot boot boot_DEVICE.img
+fastboot boot boot_polaris.img
 ```
 
-(请将DEVICE替换成你的设备代号.)
+(请将polaris替换成你的设备代号.)
 
 另外，你可以将UEFI刷写至recovery分区以实现双重启动。
 
 ```bash
-fastboot flash recovery boot_DEVICE.img
+fastboot flash recovery boot_polaris.img
 ```
 
 ## 贡献
