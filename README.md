@@ -40,7 +40,7 @@ index 0df728f..247c917 100644
 
 ```bash
 git clone https://github.com/hejianwei889/sdm845.git --depth=1
-cd sdm845
+cd edk2-sdm845
 ```
 
 2.1 编译此项目（默认使用fastgit加速submodule克隆，若不需要请删去 `--chinese`）
